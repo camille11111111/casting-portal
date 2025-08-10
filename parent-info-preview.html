@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parent Information Form - Éminente Creative Production</title>
+    <link rel="stylesheet" href="eminente-design-system.css">
+    <style>
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: var(--space-xl) var(--space-lg);
+            flex: 1;
+        }
+        
+        .form-header {
+            text-align: center;
+            margin-bottom: var(--space-xxl);
+        }
+        
+        .model-name-display {
+            font-family: var(--font-serif);
+            font-size: var(--text-display);
+            color: var(--eminente-accent);
+            margin-bottom: var(--space-sm);
+            line-height: 1;
+        }
+        
+        .form-subtitle {
+            font-family: var(--font-sans);
+            font-size: var(--text-small);
+            color: var(--eminente-gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .info-form {
+            background: var(--eminente-white);
+            border: var(--border);
+            padding: var(--space-xl);
+        }
+        
+        .form-intro {
+            font-family: var(--font-sans);
+            font-size: var(--text-base);
+            color: var(--eminente-text);
+            margin-bottom: var(--space-xl);
+            line-height: var(--leading-relaxed);
+        }
+        
+        .form-group {
+            margin-bottom: var(--space-lg);
+        }
+        
+        .eminente-label {
+            display: block;
+            margin-bottom: var(--space-xs);
+            font-family: var(--font-sans);
+            font-size: var(--text-small);
+            font-weight: var(--font-bold);
+            letter-spacing: var(--tracking-tight);
+            text-transform: uppercase;
+            color: var(--eminente-text);
+        }
+        
+        .required::after {
+            content: '*';
+            color: #FF0000;
+            margin-left: 4px;
+        }
+        
+        .submit-section {
+            text-align: center;
+            margin-top: var(--space-xxl);
+        }
+        
+        .info-note {
+            background: var(--eminente-bg);
+            padding: var(--space-md);
+            margin-bottom: var(--space-lg);
+            font-size: var(--text-small);
+            color: var(--eminente-gray);
+            border-left: 3px solid var(--eminente-accent);
+        }
+        
+        /* Override for preview */
+        :root {
+            --eminente-bg: #F2F1EE;
+            --eminente-text: #0E0E0E;
+            --eminente-accent: #CFCFC5;
+            --eminente-gray: #757575;
+            --eminente-black: #000000;
+            --eminente-white: #FFFFFF;
+            --eminente-border: #CFCFC5;
+            --font-sans: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+            --font-serif: 'Georgia', serif;
+            --text-small: 12px;
+            --text-base: 14px;
+            --text-display: 70px;
+            --text-xlarge: 24px;
+            --space-xs: 8px;
+            --space-sm: 10px;
+            --space-md: 19px;
+            --space-lg: 23px;
+            --space-xl: 33px;
+            --space-xxl: 70px;
+            --border: 1px solid #CFCFC5;
+            --leading-relaxed: 1.6;
+            --tracking-tight: -0.4px;
+            --font-bold: 700;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--eminente-bg);
+            color: var(--eminente-text);
+        }
+        
+        .eminente-header {
+            padding: var(--space-md) var(--space-lg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: var(--border);
+            background: white;
+        }
+        
+        .eminente-logo {
+            font-size: var(--text-small);
+            font-weight: var(--font-bold);
+            letter-spacing: var(--tracking-tight);
+        }
+        
+        .eminente-dot {
+            width: 11px;
+            height: 11px;
+            background-color: var(--eminente-text);
+            border-radius: 50%;
+        }
+        
+        .eminente-input {
+            width: 100%;
+            padding: var(--space-sm);
+            font-family: var(--font-sans);
+            font-size: var(--text-base);
+            letter-spacing: var(--tracking-tight);
+            color: var(--eminente-text);
+            background-color: var(--eminente-white);
+            border: var(--border);
+        }
+        
+        .eminente-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-sm) var(--space-lg);
+            font-family: var(--font-sans);
+            font-size: var(--text-small);
+            font-weight: var(--font-bold);
+            letter-spacing: var(--tracking-tight);
+            text-transform: uppercase;
+            text-decoration: none;
+            border: var(--border);
+            background-color: var(--eminente-text);
+            color: var(--eminente-white);
+            cursor: pointer;
+        }
+        
+        .eminente-btn:hover {
+            background-color: var(--eminente-black);
+        }
+        
+        .eminente-footer {
+            padding: var(--space-lg);
+            border-top: var(--border);
+            font-size: 10px;
+            color: var(--eminente-gray);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+        }
+        
+        @media (max-width: 768px) {
+            .model-name-display {
+                font-size: 48px;
+            }
+        }
+        
+        /* Preview notice */
+        .preview-notice {
+            background: #2196F3;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Preview Notice -->
+    <div class="preview-notice">
+        PREVIEW MODE - Form shows "Test Child Model" - In production, this will show the actual child's name from the URL
+    </div>
+    
+    <!-- Simple Header -->
+    <header class="eminente-header">
+        <div class="eminente-logo">Éminente Creative Production</div>
+        <div class="eminente-dot"></div>
+    </header>
+    
+    <div class="form-container">
+        <!-- Form Header with Model Name -->
+        <div class="form-header">
+            <h1 class="model-name-display" id="modelName">Test Child Model</h1>
+            <p class="form-subtitle">Parent/Guardian Information Required</p>
+        </div>
+        
+        <!-- Information Form -->
+        <form id="parentInfoForm" class="info-form">
+            <p class="form-intro">
+                Dear Parent/Guardian,<br><br>
+                We need to update our records for the upcoming shoot. Please complete the information below.
+                All information will be kept strictly confidential and used only for production purposes.
+            </p>
+            
+            <div class="info-note">
+                <strong>Shoot Dates:</strong> August 2025<br>
+                <strong>Location:</strong> Sydney Studio
+            </div>
+            
+            <!-- Parent Name -->
+            <div class="form-group">
+                <label class="eminente-label required" for="parentName">
+                    Parent/Guardian Full Name
+                </label>
+                <input 
+                    type="text" 
+                    id="parentName" 
+                    name="Parent Name" 
+                    class="eminente-input" 
+                    required
+                    placeholder="Enter your full name"
+                    value=""
+                >
+            </div>
+            
+            <!-- Parent Mobile -->
+            <div class="form-group">
+                <label class="eminente-label required" for="parentMobile">
+                    Mobile Number
+                </label>
+                <input 
+                    type="tel" 
+                    id="parentMobile" 
+                    name="Parent Mobile" 
+                    class="eminente-input" 
+                    required
+                    placeholder="04XX XXX XXX"
+                    pattern="[0-9 ]{12}"
+                    value=""
+                >
+                <small style="color: var(--eminente-gray); font-size: var(--text-small);">
+                    Australian mobile format: 0400 000 000
+                </small>
+            </div>
+            
+            <!-- Suburb -->
+            <div class="form-group">
+                <label class="eminente-label required" for="suburb">
+                    Child Home Suburb
+                </label>
+                <input 
+                    type="text" 
+                    id="suburb" 
+                    name="Suburb" 
+                    class="eminente-input" 
+                    required
+                    placeholder="e.g., Bondi Beach"
+                    value=""
+                >
+            </div>
+            
+            <!-- Date of Birth -->
+            <div class="form-group">
+                <label class="eminente-label required" for="dob">
+                    Child's Date of Birth
+                </label>
+                <input 
+                    type="date" 
+                    id="dob" 
+                    name="Date of Birth" 
+                    class="eminente-input" 
+                    required
+                    max="2022-01-01"
+                    min="2007-01-01"
+                    value=""
+                >
+                <small style="color: var(--eminente-gray); font-size: var(--text-small);">
+                    Required for working papers and insurance
+                </small>
+            </div>
+            
+            <!-- Submit Button -->
+            <div class="submit-section">
+                <button type="submit" class="eminente-btn eminente-btn-primary" onclick="event.preventDefault(); alert('PREVIEW MODE: In production, this will submit to Airtable and update the Test Child Model record');">
+                    Submit Information
+                </button>
+            </div>
+        </form>
+        
+        <!-- Example of what happens after submission -->
+        <div style="margin-top: 40px; padding: 20px; background: #e8f5e9; border: 1px solid #4CAF50; display: none;" id="successExample">
+            <h3 style="color: #2e7d32; margin-bottom: 10px;">After Submission (Example):</h3>
+            <p style="color: #2e7d32;">✓ Data saved to Airtable under "Test Child Model"</p>
+            <p style="color: #2e7d32;">✓ Parent sees thank you message</p>
+            <p style="color: #2e7d32;">✓ You receive the information in your Airtable base</p>
+        </div>
+    </div>
+    
+    <!-- Simple Footer -->
+    <footer class="eminente-footer">
+        <div>© 2025 Éminente Pty Ltd</div>
+        <div>Confidential Information Form</div>
+    </footer>
+    
+    <script>
+        // Format phone number as user types (for preview)
+        document.getElementById('parentMobile').addEventListener('input', (e) => {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 10) value = value.slice(0, 10);
+            
+            // Format as 04XX XXX XXX
+            if (value.length >= 6) {
+                value = value.slice(0, 4) + ' ' + value.slice(4, 7) + ' ' + value.slice(7);
+            } else if (value.length >= 4) {
+                value = value.slice(0, 4) + ' ' + value.slice(4);
+            }
+            
+            e.target.value = value;
+        });
+        
+        // Show preview URL example
+        console.log('Example URL for this form:');
+        console.log('https://casting.eminente.art/parent-info-form.html?model=Test%20Child%20Model');
+        console.log('');
+        console.log('For real use, replace "Test Child Model" with actual model names');
+    </script>
+</body>
+</html>
