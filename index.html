@@ -38,43 +38,9 @@
             }
         }
         
-        /* Grid Background Pattern */
-        .grid-pattern {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            pointer-events: none;
-            opacity: 0.05;
-            z-index: 0;
-        }
-        
-        .grid-pattern::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 50%;
-            width: 1px;
-            height: 100%;
-            background: var(--eminente-text);
-        }
-        
-        .grid-pattern::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 0;
-            width: 100%;
-            height: 1px;
-            background: var(--eminente-text);
-        }
     </style>
 </head>
 <body>
-    <!-- Grid Pattern Background -->
-    <div class="grid-pattern"></div>
-    
     <!-- Header -->
     <header class="eminente-header">
         <div class="eminente-logo">Éminente Creative Production</div>
@@ -90,8 +56,7 @@
     
     <!-- Footer -->
     <footer class="eminente-footer">
-        <div>© 2025 Éminente Pty Ltd. ABN 84663448992</div>
-        <div>All rights reserved</div>
+        <div>© 2025 Éminente Pty Ltd. ABN 84663448992<br>All rights reserved</div>
     </footer>
     
 </body>
