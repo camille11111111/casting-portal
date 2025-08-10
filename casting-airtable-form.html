@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casting Application - Éminente Creative Production</title>
+    <link rel="stylesheet" href="eminente-design-system.css">
+    <style>
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: var(--space-xl) var(--space-lg);
+        }
+        
+        .form-header {
+            text-align: center;
+            margin-bottom: var(--space-xxl);
+        }
+        
+        .project-title {
+            font-family: var(--font-serif);
+            font-size: var(--text-display);
+            color: var(--eminente-accent);
+            margin-bottom: var(--space-md);
+        }
+        
+        .custom-form {
+            background: var(--eminente-white);
+            border: var(--border);
+            padding: var(--space-xl);
+        }
+        
+        .form-section {
+            margin-bottom: var(--space-xl);
+            padding-bottom: var(--space-xl);
+            border-bottom: var(--border);
+        }
+        
+        .form-section:last-child {
+            border-bottom: none;
+        }
+        
+        .section-title {
+            font-family: var(--font-serif);
+            font-size: var(--text-xlarge);
+            color: var(--eminente-text);
+            margin-bottom: var(--space-lg);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-lg);
+            margin-bottom: var(--space-lg);
+        }
+        
+        .form-group {
+            margin-bottom: var(--space-md);
+        }
+        
+        .required::after {
+            content: '*';
+            color: #FF0000;
+            margin-left: 4px;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        .image-upload-area {
+            border: 2px dashed var(--eminente-border);
+            padding: var(--space-lg);
+            text-align: center;
+            cursor: pointer;
+            transition: all var(--transition-base);
+        }
+        
+        .image-upload-area:hover {
+            background: var(--eminente-bg);
+        }
+        
+        .date-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-sm);
+            margin-top: var(--space-sm);
+        }
+        
+        .success-message {
+            background: #4CAF50;
+            color: white;
+            padding: var(--space-lg);
+            text-align: center;
+            margin: var(--space-xl) 0;
+        }
+        
+        .error-message {
+            background: #f44336;
+            color: white;
+            padding: var(--space-lg);
+            text-align: center;
+            margin: var(--space-xl) 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="eminente-header">
+        <div class="eminente-logo">Éminente Creative Production</div>
+        <nav class="eminente-nav">
+            <a href="/">Home</a>
+            <a href="/casting-portal.html">Casting</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+        </nav>
+        <div class="eminente-dot"></div>
+    </header>
+    
+    <div class="form-container">
+        <!-- Dynamic Form Header -->
+        <div class="form-header">
+            <h1 class="project-title" id="projectTitle">Casting Application</h1>
+            <p class="project-details" id="projectDetails">Complete the required fields below</p>
+        </div>
+        
+        <!-- Custom Form that submits to Airtable -->
+        <form id="castingForm" class="custom-form">
+            
+            <!-- Basic Information - Always shown -->
+            <div class="form-section" data-section="basic">
+                <h2 class="section-title">Basic Information</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="eminente-label required" for="modelName">Model Name</label>
+                        <input type="text" id="modelName" name="Model Name" class="eminente-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="eminente-label" for="modelType">Model Type</label>
+                        <select id="modelType" name="Model Type" class="eminente-select">
+                            <option value="">Select...</option>
+                            <option value="Adult">Adult</option>
+                            <option value="Child">Child</option>
+                            <option value="Teen">Teen</option>
+                            <option value="Family">Family</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="eminente-label" for="agency">Agency</label>
+                        <select id="agency" name="Agency" class="eminente-select">
+                            <option value="">Select Agency...</option>
+                            <option value="Bella">Bella</option>
+                            <option value="IMG">IMG</option>
+                            <option value="Chadwick">Chadwick</option>
+                            <option value="Kult">Kult</option>
+                            <option value="Priscillas">Priscillas</option>
+                            <option value="Viviens">Viviens</option>
+                            <option value="Freelance">Freelance</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="eminente-label" for="instagram">Instagram</label>
+                        <input type="text" id="instagram" name="Instagram" class="eminente-input" placeholder="@username">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Child-specific fields -->
+            <div class="form-section hidden" data-section="child">
+                <h2 class="section-title">Parent/Guardian Information</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="eminente-label required" for="parentName">Parent Name</label>
+                        <input type="text" id="parentName" name="Parent Name" class="eminente-input">
+                    </div>
+                    <div class="form-group">
+                        <label class="eminente-label required" for="parentMobile">Parent Mobile</label>
+                        <input type="tel" id="parentMobile" name="Parent Mobile" class="eminente-input">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="eminente-label" for="parentEmail">Parent Email</label>
+                        <input type="email" id="parentEmail" name="Parent Email" class="eminente-input">
+                    </div>
+                    <div class="form-group">
+                        <label class="eminente-label" for="dob">Date of Birth</label>
+                        <input type="date" id="dob" name="Date of Birth" class="eminente-input">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="eminente-label" for="wwcNumber">WWC Number</label>
+                        <input type="text" id="wwcNumber" name="WWC Number" class="eminente-input">
+                    </div>
+                    <div class="form-group">
+                        <label class="eminente-label" for="wwcExpiry">WWC Expiration Date</label>
+                        <input type="date" id="wwcExpiry" name="WWC Expiration Date" class="eminente-input">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Model Details -->
+            <div class="form-section" data-section="details">
+                <h2 class="section-title">Model Details</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="eminente-label" for="suburb">Suburb</label>
+                        <input type="text" id="suburb" name="Suburb" class="eminente-input">
+                    </div>
+                    <div class="form-group">
+                        <label class="eminente-label" for="shootLocation">Shoot Location Suburb</label>
+                        <input type="text" id="shootLocation" name="Shoot Location Suburb" class="eminente-input">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="eminente-label" for="confirmedMeasurements">Confirmed Measurements</label>
+                    <textarea id="confirmedMeasurements" name="Confirmed Measurements" class="eminente-textarea" 
+                        placeholder="Height, Bust, Waist, Hips, Shoe size, etc." rows="3"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label class="eminente-label" for="agencyStats">Agency Listed Stats</label>
+                    <textarea id="agencyStats" name="Agency_Listed_Stats" class="eminente-textarea" rows="3"></textarea>
+                </div>
+            </div>
+            
+            <!-- Availability Section -->
+            <div class="form-section hidden" data-section="availability">
+                <h2 class="section-title">Availability</h2>
+                <div class="date-selector" id="availabilityDates">
+                    <!-- Dates will be dynamically added based on project -->
+                </div>
+                
+                <div class="form-group" style="margin-top: var(--space-lg);">
+                    <label class="eminente-label" for="intendedShootDate">Intended Shoot Date</label>
+                    <input type="date" id="intendedShootDate" name="Intended Shoot Date" class="eminente-input">
+                </div>
+            </div>
+            
+            <!-- Portfolio/Images -->
+            <div class="form-section" data-section="portfolio">
+                <h2 class="section-title">Portfolio Links</h2>
+                <div class="form-group">
+                    <label class="eminente-label" for="portfolio">Portfolio URL</label>
+                    <input type="url" id="portfolio" name="Portfolio" class="eminente-input" placeholder="https://...">
+                </div>
+                
+                <div class="form-group">
+                    <label class="eminente-label">Upload Images</label>
+                    <div class="image-upload-area" onclick="alert('Image upload would be handled here')">
+                        <p>Drop files here or click to browse</p>
+                        <small>Portfolio Images, Digitals, Current Photos</small>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Booking Information (for admin/agency use) -->
+            <div class="form-section hidden" data-section="booking">
+                <h2 class="section-title">Booking Information</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="eminente-label" for="rate">Rate</label>
+                        <input type="text" id="rate" name="Rate" class="eminente-input">
+                    </div>
+                    <div class="form-group">
+                        <label class="eminente-label" for="castingStatus">Casting Status</label>
+                        <select id="castingStatus" name="Casting_Status" class="eminente-select">
+                            <option value="">Select...</option>
+                            <option value="Submitted">Submitted</option>
+                            <option value="Shortlisted">Shortlisted</option>
+                            <option value="Confirmed">Confirmed</option>
+                            <option value="On Hold">On Hold</option>
+                            <option value="Released">Released</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="eminente-label" for="notes">Notes</label>
+                    <textarea id="notes" name="Notes" class="eminente-textarea" rows="3"></textarea>
+                </div>
+            </div>
+            
+            <!-- Submit -->
+            <div class="submit-section" style="text-align: center; margin-top: var(--space-xxl);">
+                <button type="submit" class="eminente-btn eminente-btn-primary">
+                    Submit Application
+                </button>
+            </div>
+        </form>
+        
+        <!-- Messages -->
+        <div id="successMessage" class="success-message hidden">
+            <h2>Application Submitted Successfully!</h2>
+            <p>We'll review your submission and contact you if you're selected.</p>
+        </div>
+        
+        <div id="errorMessage" class="error-message hidden">
+            <h2>Submission Error</h2>
+            <p id="errorText">Please try again or contact us directly.</p>
+        </div>
+    </div>
+    
+    <script>
+        // Configuration for different casting types/projects
+        const formConfigs = {
+            'general': {
+                title: 'General Casting Application',
+                sections: ['basic', 'details', 'portfolio'],
+                requiredFields: ['Model Name']
+            },
+            'child': {
+                title: 'Child Model Application',
+                sections: ['basic', 'child', 'details', 'portfolio'],
+                requiredFields: ['Model Name', 'Parent Name', 'Parent Mobile']
+            },
+            'august-ecomm': {
+                title: 'August Ecomm Casting',
+                subtitle: 'Dates: August 1, 7-8, 11',
+                sections: ['basic', 'details', 'availability', 'portfolio'],
+                availableDates: [
+                    { field: 'Friday 1st August', label: 'Friday 1st August' },
+                    { field: 'Thursday 7th August', label: 'Thursday 7th August' },
+                    { field: 'Friday 8th August', label: 'Friday 8th August' },
+                    { field: 'Monday 11th August', label: 'Monday 11th August' }
+                ]
+            },
+            'weekend-shoot': {
+                title: 'Weekend Shoot Casting',
+                subtitle: 'August 15-17',
+                sections: ['basic', 'details', 'availability'],
+                availableDates: [
+                    { field: 'Friday 15th August', label: 'Friday 15th August' },
+                    { field: 'Saturday 16th August', label: 'Saturday 16th August' },
+                    { field: 'Sunday 17th August', label: 'Sunday 17th August' }
+                ]
+            }
+        };
+        
+        // Airtable configuration
+        const AIRTABLE_CONFIG = {
+            apiKey: 'patTOxJNWpab8lZaS.32865f4259912a3f0024136216b7f0d9d9b9f453063eea51fece7fbf3fb426ee',
+            baseId: 'appuDKVB3PKUbTWsv',
+            tableName: 'Model Database'
+        };
+        
+        // Get parameters from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const castingType = urlParams.get('type') || 'general';
+        const projectId = urlParams.get('project');
+        
+        // Configure form based on type
+        function configureForm(type) {
+            const config = formConfigs[type] || formConfigs['general'];
+            
+            // Update header
+            document.getElementById('projectTitle').textContent = config.title;
+            if (config.subtitle) {
+                document.getElementById('projectDetails').textContent = config.subtitle;
+            }
+            
+            // Show/hide sections
+            document.querySelectorAll('[data-section]').forEach(section => {
+                if (config.sections.includes(section.dataset.section)) {
+                    section.classList.remove('hidden');
+                } else {
+                    section.classList.add('hidden');
+                }
+            });
+            
+            // Add availability dates if specified
+            if (config.availableDates) {
+                const container = document.getElementById('availabilityDates');
+                container.innerHTML = config.availableDates.map(date => `
+                    <label>
+                        <input type="checkbox" name="${date.field}" value="Yes">
+                        ${date.label}
+                    </label>
+                `).join('');
+            }
+            
+            // Update required fields
+            if (config.requiredFields) {
+                document.querySelectorAll('.required').forEach(label => {
+                    label.classList.remove('required');
+                });
+                config.requiredFields.forEach(fieldName => {
+                    const input = document.querySelector(`[name="${fieldName}"]`);
+                    if (input && input.previousElementSibling) {
+                        input.previousElementSibling.classList.add('required');
+                        input.setAttribute('required', 'required');
+                    }
+                });
+            }
+        }
+        
+        // Pre-fill form from localStorage or URL params
+        function prefillForm() {
+            // Check localStorage for returning user data
+            const savedData = localStorage.getItem('castingFormBasicData');
+            if (savedData) {
+                const data = JSON.parse(savedData);
+                Object.keys(data).forEach(key => {
+                    const field = document.querySelector(`[name="${key}"]`);
+                    if (field) field.value = data[key];
+                });
+            }
+            
+            // Pre-fill from URL parameters
+            urlParams.forEach((value, key) => {
+                const field = document.querySelector(`[name="${key}"]`) || document.getElementById(key);
+                if (field) field.value = decodeURIComponent(value);
+            });
+        }
+        
+        // Handle form submission to Airtable
+        async function submitToAirtable(formData) {
+            const fields = {};
+            
+            // Convert FormData to Airtable fields object
+            for (let [key, value] of formData.entries()) {
+                if (value && value !== '') {
+                    // Handle checkboxes
+                    if (value === 'on' || value === 'Yes') {
+                        fields[key] = true;
+                    } else {
+                        fields[key] = value;
+                    }
+                }
+            }
+            
+            // Add metadata
+            fields['Casting_Status'] = 'Submitted';
+            fields['August Ecomm Projects'] = projectId || castingType;
+            
+            try {
+                const response = await fetch(`https://api.airtable.com/v0/${AIRTABLE_CONFIG.baseId}/${AIRTABLE_CONFIG.tableName}`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${AIRTABLE_CONFIG.apiKey}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        fields: fields
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                return await response.json();
+            } catch (error) {
+                console.error('Error submitting to Airtable:', error);
+                throw error;
+            }
+        }
+        
+        // Handle form submission
+        document.getElementById('castingForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            
+            // Save basic data to localStorage for future pre-fill
+            const basicData = {
+                'Model Name': formData.get('Model Name'),
+                'Agency': formData.get('Agency'),
+                'Instagram': formData.get('Instagram'),
+                'Suburb': formData.get('Suburb')
+            };
+            localStorage.setItem('castingFormBasicData', JSON.stringify(basicData));
+            
+            try {
+                // Show loading state
+                const submitBtn = e.target.querySelector('button[type="submit"]');
+                submitBtn.textContent = 'Submitting...';
+                submitBtn.disabled = true;
+                
+                // Submit to Airtable
+                await submitToAirtable(formData);
+                
+                // Show success message
+                document.getElementById('castingForm').classList.add('hidden');
+                document.getElementById('successMessage').classList.remove('hidden');
+                
+                // Scroll to top
+                window.scrollTo(0, 0);
+                
+            } catch (error) {
+                // Show error message
+                document.getElementById('errorText').textContent = error.message;
+                document.getElementById('errorMessage').classList.remove('hidden');
+                
+                // Re-enable submit button
+                const submitBtn = e.target.querySelector('button[type="submit"]');
+                submitBtn.textContent = 'Submit Application';
+                submitBtn.disabled = false;
+            }
+        });
+        
+        // Initialize form
+        configureForm(castingType);
+        prefillForm();
+        
+        // Handle model type change to show/hide child fields
+        document.getElementById('modelType').addEventListener('change', (e) => {
+            const childSection = document.querySelector('[data-section="child"]');
+            if (e.target.value === 'Child') {
+                childSection.classList.remove('hidden');
+            } else {
+                childSection.classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+</html>
